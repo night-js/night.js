@@ -6,8 +6,8 @@
 ## How to Install
 At the beginning install the library in Your project via npm or Yarn:
 ```sh
-$ npm install night
-$ yarn add night
+$ npm install night.js
+$ yarn add night.js
 ```
 
 ## Getting Started
@@ -18,8 +18,8 @@ $ yarn add night
 
 **Or CommonJS/ES6 import:**
 ```js
-const Night = require('night'); // CommonJS
-import Night from 'night'; // ES6
+const Night = require('night.js'); // CommonJS
+import Night from 'night.js'; // ES6
 ```
 
 Next use library with:
