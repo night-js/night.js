@@ -1,0 +1,52 @@
+{
+  "name": "night.js",
+  "version": "1.1.0-beta.1",
+  "description": "Smart dark mode switcher (based on location and time)",
+  "main": "lib/night.min.js",
+  "scripts": {
+    "build": "webpack --env dev && webpack --env build && npm run test",
+    "dev": "webpack --progress --colors --watch --env dev",
+    "test": "mocha -r @babel/register --colors ./test/*.spec.js",
+    "test:watch": "mocha -r @babel/register --colors -w ./test/*.spec.js",
+    "deploy": "gh-pages -d demo/build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JB1905/night.js.git"
+  },
+  "keywords": [
+    "JavaScript",
+    "dark",
+    "night",
+    "switch",
+    "smart",
+    "sun"
+  ],
+  "author": "Jakub Biesiada",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JB1905/night.js/issues"
+  },
+  "homepage": "https://github.com/JB1905/night.js#readme",
+  "dependencies": {
+    "suncalc": "^1.8.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.1.2",
+    "@babel/core": "^7.1.2",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/register": "^7.0.0",
+    "babel-loader": "^8.0.4",
+    "babel-plugin-add-module-exports": "^1.0.0",
+    "chai": "^4.2.0",
+    "gh-pages": "^2.0.0",
+    "jsdom": "12.1.0",
+    "jsdom-global": "^3.0.2",
+    "mocha": "^5.2.0",
+    "mock-local-storage": "^1.0.5",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2",
+    "yargs": "^12.0.2"
+  }
+}
