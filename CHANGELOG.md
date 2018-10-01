@@ -1,6 +1,6 @@
 # night.js Changelog
 
-## 1.1.0 beta 1 (2018-10-01)
+## 1.1.0 beta 1 / 1.1.0 (2018-10-01)
 #### New Feature
 - handle error on disallow permission to geolocation
 - added `onDenied` callback
