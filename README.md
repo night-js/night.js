@@ -52,16 +52,16 @@ Name | Type | Default | Description | Available options
 -|-|-|-|-
 **lightClass** | string | ` ` | Class added to body when light mode is active | Name of the class
 **darkClass** | string | `dark` | Class added to body when dark mode is active | Name of the class
-**cache** | boolean | `true` | cache location coordinates in local storage for one day | `true` (enable), `false` (disable)
-**cacheClear** | boolean | `true` | clear location coordinates in local storage everyday at midnight | `true` (enable), `false` (disable)
-**auto** | boolean | `true` | enable smart switch on script init | `true` (enable), `false` (disable)
-**onAuto** | function | `null` | callback on smart switch | `() => { // code }`
-**onLight** | function | `null` | callback when dark mode is disabled | `() => { // code }`
-**onDark** | function | `null` | callback when dark mode is enabled | `() => { // code }`
-**onToggle** | function | `null` | callback on dark/light mode toggle | `() => { // code }`
-**onDenied** | function | `null` | callback on geolocation permission denied | `() => { // code }`
-**onCacheClear** | function | `null` | callback when location coordinates and midnight time in local storage cleared | `() => { // code }`
-**onReset** | function | `null` | callback on localStorage reset | `() => { // code }`
+**cache** | boolean | `true` | Cache location coordinates in local storage for one day | `true` (enable), `false` (disable)
+**cacheClear** | boolean | `true` | Clear location coordinates in local storage everyday at midnight | `true` (enable), `false` (disable)
+**auto** | boolean | `true` | Enable smart switch on script init | `true` (enable), `false` (disable)
+**onAuto** | function | `null` | Callback on smart switch | `() => { // code }`
+**onLight** | function | `null` | Callback when dark mode is disabled | `() => { // code }`
+**onDark** | function | `null` | Callback when dark mode is enabled | `() => { // code }`
+**onToggle** | function | `null` | Callback on dark/light mode toggle | `() => { // code }`
+**onDenied** | function | `null` | Callback on geolocation permission denied | `() => { // code }`
+**onCacheClear** | function | `null` | Callback when location coordinates and midnight time in local storage cleared | `() => { // code }`
+**onReset** | function | `null` | Callback on localStorage reset | `() => { // code }`
 
 ## Events
 `smartDark` event will output sun position times and user geolocation latitude & longitude
