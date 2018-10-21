@@ -1,6 +1,6 @@
 # night.js Changelog
 
-## 1.1.1 (2018-10-01)
+## 1.1.1 / 1.1.2 (2018-10-01)
 #### Documentation
 - Updated README.md
 
