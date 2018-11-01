@@ -1,8 +1,15 @@
 # night.js Changelog
 
+## 1.1.3 (2018-11-01)
+#### Internal
+- cleaned up
+
+#### Dependencies
+- removed unused devDependencies
+
 ## 1.1.1 / 1.1.2 (2018-10-01)
 #### Documentation
-- Updated README.md
+- updated README.md
 
 ## 1.1.0 beta 1 / 1.1.0 (2018-10-01)
 #### New Feature

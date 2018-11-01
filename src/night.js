@@ -117,7 +117,7 @@ export default class Night {
 
     this.isDark = false;
 
-    if (this.settings.lightClass !== '') {
+    if (this.settings.lightClass) {
       document.body.classList.add(this.settings.lightClass);
     }
 
@@ -131,7 +131,7 @@ export default class Night {
 
     this.isDark = true;
 
-    if (this.settings.lightClass !== '') {
+    if (this.settings.lightClass) {
       document.body.classList.remove(this.settings.lightClass);
     }
 
