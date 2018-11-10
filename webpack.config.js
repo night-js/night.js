@@ -28,7 +28,8 @@ const config = {
     filename: outputFile,
     library: 'Night',
     libraryTarget: 'umd',
-    umdNamedDefine: true
+    umdNamedDefine: true,
+    globalObject: 'global'
   },
   module: {
     rules: [
