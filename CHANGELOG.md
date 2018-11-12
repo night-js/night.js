@@ -1,5 +1,13 @@
 # night.js Changelog
 
+## Next
+#### Tests
+- update tests
+
+## 1.1.4 (2018-11-12)
+#### Bug Fix
+- fixed bug with `window` global variable in Node.js
+
 ## 1.1.3 (2018-11-01)
 #### Internal
 - cleaned up
