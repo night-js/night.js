@@ -1,6 +1,6 @@
 # night.js Changelog
 
-## Next
+## 1.1.5 (2018-11-17)
 #### Tests
 - update tests
 
