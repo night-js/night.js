@@ -1,5 +1,9 @@
 # night.js Changelog
 
+## 1.1.7 (2018-11-17)
+#### Internal
+- renamed method `settings()` to `extendSettings()` to avoid conflict with variable `settings`
+
 ## 1.1.5 / 1.1.6 (2018-11-17)
 #### Tests
 - updated tests

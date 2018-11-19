@@ -2,7 +2,7 @@ import SunCalc from 'suncalc';
 
 export default class Night {
   constructor(settings = {}) {
-    this.settings = this.settings(settings);
+    this.settings = this.extendSettings(settings);
 
     this.time();
 
@@ -33,9 +33,7 @@ export default class Night {
     }
   }
 
-  theme() {
-    localStorage.dark === 'true' ? this.dark() : this.light();
-  }
+  theme = () => (localStorage.dark === 'true' ? this.dark() : this.light());
 
   auto(init) {
     if ((init && !localStorage.auto) || !init) {
@@ -148,8 +146,8 @@ export default class Night {
     localStorage.setItem('auto', false);
   }
 
-  settings(settings) {
-    const defaults = {
+  extendSettings(settings) {
+    const defaultSettings = {
       lightClass: '', // class added to body when dark mode is disabled
       darkClass: 'dark', // class added to body when dark mode is enabled
       cache: true, // cache location coordinates in local storage
@@ -165,13 +163,13 @@ export default class Night {
       onReset: null // callback on localStorage reset
     };
 
-    const custom = {};
+    const newSettings = {};
 
-    for (const setting in defaults) {
-      if (setting in settings) custom[setting] = settings[setting];
-      else custom[setting] = defaults[setting];
+    for (const property in defaultSettings) {
+      if (property in settings) newSettings[property] = settings[property];
+      else newSettings[property] = defaultSettings[property];
     }
 
-    return custom;
+    return newSettings;
   }
 }

@@ -2,7 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 const env = require('yargs').argv.env;
 
-let libraryName = 'night';
+const libraryName = 'night';
 
 let outputFile, mode, devtool;
 

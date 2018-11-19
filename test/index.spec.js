@@ -65,4 +65,34 @@ describe('Initialize library', () => {
     assert.equal(window.localStorage.dark, null);
     assert.equal(window.localStorage.auto, null);
   });
+
+  it('should call onAuto method', () => {
+    let test = false;
+
+    night.settings.onAuto = () => (test = true);
+
+    night.auto();
+
+    assert.equal(test, true);
+  });
+
+  it('should call onDenied method', () => {
+    let test = false;
+
+    night.settings.onDenied = () => (test = true);
+
+    night.error();
+
+    assert.equal(test, true);
+  });
+
+  it('should call onReset method', () => {
+    let test = false;
+
+    night.settings.onReset = () => (test = true);
+
+    night.reset();
+
+    assert.equal(test, true);
+  });
 });
