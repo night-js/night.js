@@ -86,7 +86,7 @@ export default class Night {
 
     const values = {
       sunrise: times.sunrise,
-      sunset: times.sunsetStart,
+      sunset: times.sunset,
       latitude,
       longitude
     };
@@ -102,7 +102,7 @@ export default class Night {
 
       if (JSON.parse(localStorage.auto)) {
         now.getTime() > times.sunrise.getTime() &&
-        now.getTime() < times.sunsetStart.getTime()
+        now.getTime() < times.sunset.getTime()
           ? this.light()
           : this.dark();
       }
