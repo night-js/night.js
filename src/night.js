@@ -4,22 +4,23 @@ export default class Night {
   constructor(settings = {}) {
     this.settings = this.extendSettings(settings);
 
-    this.time();
+    this.today = new Date();
+
+    setInterval(() => this.time(new Date()), 1000);
 
     if (this.settings.auto) this.auto(true);
 
     this.theme();
   }
 
-  time() {
-    this.today = new Date();
+  time(now) {
     const midnight = new Date().setHours(24, 0, 0, 0);
 
     if (!localStorage.time) {
       localStorage.setItem('time', JSON.stringify(midnight));
     } else if (
       localStorage.location &&
-      this.today.getTime() > JSON.parse(localStorage.time)
+      now.getTime() > JSON.parse(localStorage.time)
     ) {
       localStorage.removeItem('time');
 
@@ -96,12 +97,16 @@ export default class Night {
       })
     );
 
-    if (JSON.parse(localStorage.auto)) {
-      this.today.getTime() > times.sunrise.getTime() &&
-      this.today.getTime() < times.sunsetStart.getTime()
-        ? this.light()
-        : this.dark();
-    }
+    setInterval(() => {
+      const now = new Date();
+
+      if (JSON.parse(localStorage.auto)) {
+        now.getTime() > times.sunrise.getTime() &&
+        now.getTime() < times.sunsetStart.getTime()
+          ? this.light()
+          : this.dark();
+      }
+    }, 100);
   }
 
   reset() {

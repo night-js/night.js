@@ -1,5 +1,9 @@
 # night.js Changelog
 
+## 1.1.8 (2018-11-26)
+#### New Feature
+- added interval to switch theme just after sunrise & sunset without page reload
+
 ## 1.1.7 (2018-11-17)
 #### Internal
 - renamed method `settings()` to `extendSettings()` to avoid conflict with variable `settings`
