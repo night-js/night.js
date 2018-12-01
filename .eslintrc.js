@@ -10,10 +10,13 @@ module.exports = {
       'error',
       { allowShortCircuit: true, allowTernary: true }
     ],
-    'one-var': ['error', { let: 'consecutive', const: 'never' }],
+    'one-var': [
+      'error',
+      { initialized: 'never', uninitialized: 'consecutive' }
+    ],
     'class-methods-use-this': ['error', { exceptMethods: ['extendSettings'] }],
     'new-cap': ['error', { newIsCap: false, capIsNew: false }],
-    'max-len': ['error', { ignoreTrailingComments: true }],
+    'max-len': ['error', { ignoreComments: true, ignoreStrings: true }],
     'prettier/prettier': 'error'
   }
 };
