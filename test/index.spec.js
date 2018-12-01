@@ -3,12 +3,19 @@ import { assert } from 'chai';
 import Night from '../lib/night';
 
 global.window = {};
-window.localStorage = global.localStorage;
 
 describe('Initialize library', () => {
   let night;
 
-  before(() => (night = new Night()));
+  const setStore = () => (window.localStorage = global.localStorage);
+
+  before(() => {
+    setStore();
+
+    night = new Night();
+  });
+
+  afterEach(() => setStore);
 
   const location = {
     coords: {
@@ -17,44 +24,34 @@ describe('Initialize library', () => {
     }
   };
 
-  it('should set midnight time', () => {
-    window.localStorage.time = null;
-
+  it('set midnight time', () => {
     const midnight = new Date().setHours(24, 0, 0, 0);
 
     night.time();
     assert.equal(window.localStorage.time, JSON.stringify(midnight));
   });
 
-  it('should set auto switch', () => {
-    window.localStorage.auto = null;
-
+  it('set auto switch', () => {
     night.auto();
     assert.equal(window.localStorage.auto, 'true');
   });
 
-  it('should set auto switch without location', () => {
-    window.localStorage.location = null;
-
+  it('set auto switch without location', () => {
     night.auto(true);
     assert.equal(window.localStorage.auto, 'true');
   });
 
-  it('should init auto switch', () => {
-    window.localStorage.auto = null;
-
+  it('init auto switch', () => {
     night.auto(true);
     assert.equal(window.localStorage.auto, 'true');
   });
 
-  it('should set geolocation values', () => {
-    window.localStorage.location = null;
-
+  it('set geolocation values', () => {
     night.success(location);
     assert.equal(window.localStorage.location, JSON.stringify(location.coords));
   });
 
-  it('should reset localStorage', () => {
+  it('reset localStorage', () => {
     window.localStorage.location = JSON.stringify(location.coords);
     window.localStorage.dark = 'false';
     window.localStorage.auto = 'true';
@@ -66,7 +63,7 @@ describe('Initialize library', () => {
     assert.equal(window.localStorage.auto, null);
   });
 
-  it('should call onAuto method', () => {
+  it('call onAuto method', () => {
     let test = false;
 
     night.settings.onAuto = () => (test = true);
@@ -86,7 +83,7 @@ describe('Initialize library', () => {
     assert.equal(test, true);
   });
 
-  it('should call onReset method', () => {
+  it('call onReset method', () => {
     let test = false;
 
     night.settings.onReset = () => (test = true);

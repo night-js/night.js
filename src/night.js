@@ -50,14 +50,14 @@ export default class Night {
     if (!localStorage.location) {
       navigator.geolocation.getCurrentPosition(this.success, this.error);
     } else {
-      let location = JSON.parse(localStorage.location);
+      const location = JSON.parse(localStorage.location);
 
       this.checkSunPosition(location.latitude, location.longitude);
     }
   }
 
   success = pos => {
-    let location = {
+    const location = {
       latitude: pos.coords.latitude,
       longitude: pos.coords.longitude
     };
@@ -170,10 +170,10 @@ export default class Night {
 
     const newSettings = {};
 
-    for (const property in defaultSettings) {
+    Object.keys(defaultSettings).forEach(property => {
       if (property in settings) newSettings[property] = settings[property];
       else newSettings[property] = defaultSettings[property];
-    }
+    });
 
     return newSettings;
   }
