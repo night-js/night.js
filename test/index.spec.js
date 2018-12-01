@@ -5,17 +5,12 @@ import Night from '../lib/night';
 global.window = {};
 
 describe('Initialize library', () => {
-  let night;
-
   const setStore = () => (window.localStorage = global.localStorage);
 
-  before(() => {
-    setStore();
+  const night = new Night();
 
-    night = new Night();
-  });
-
-  afterEach(() => setStore);
+  before(() => setStore());
+  afterEach(() => setStore());
 
   const location = {
     coords: {
