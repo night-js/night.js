@@ -1,5 +1,18 @@
 # night.js Changelog
 
+## To do
+#### Bug Fix
+- fix test watch script error
+
+## 1.2.0 (Soon)
+#### Improvement
+- cleaned up tests
+
+#### Repository Changes
+- added Travis CI config
+- added Prettier config
+- added ESLint config
+
 ## 1.1.8 (2018-11-26)
 #### New Feature
 - added interval to switch theme just after sunrise & sunset without page reload
