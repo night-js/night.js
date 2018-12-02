@@ -68,7 +68,7 @@ describe('Initialize library', () => {
     assert.equal(test, true);
   });
 
-  it('should call onDenied method', () => {
+  it('call onDenied method', () => {
     let test = false;
 
     night.settings.onDenied = () => (test = true);
