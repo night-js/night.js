@@ -84,9 +84,12 @@ export default class Night {
   checkSunPosition(latitude, longitude) {
     const times = new SunCalc.getTimes(this.today, latitude, longitude);
 
+    const sunrise = times.sunriseEnd - (times.sunriseEnd - times.sunrise) / 2;
+    const sunset = times.sunset - (times.sunset - times.sunsetStart) / 2;
+
     const values = {
-      sunrise: times.sunrise,
-      sunset: times.sunset,
+      sunrise: new Date(sunrise),
+      sunset: new Date(sunset),
       latitude,
       longitude
     };
@@ -101,8 +104,7 @@ export default class Night {
       const now = new Date();
 
       if (JSON.parse(localStorage.auto)) {
-        now.getTime() > times.sunrise.getTime() &&
-        now.getTime() < times.sunset.getTime()
+        now.getTime() > sunrise && now.getTime() < sunset
           ? this.light()
           : this.dark();
       }
