@@ -86,5 +86,7 @@ describe('Initialize library', () => {
     night.reset();
 
     assert.equal(test, true);
+
+    window.localStorage.auto = null;
   });
 });

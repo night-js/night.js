@@ -1,12 +1,14 @@
 # night.js Changelog
 
-## To do
-#### Bug Fix
-- fix test watch script error
-
 ## 1.2.0 (Soon)
+#### Internal
+- changed sunset & sunrise values to middle of the time between start and end
+
 #### Improvement
 - cleaned up tests
+
+#### Bug Fix
+- fixed `test:watch` script error
 
 #### Repository Changes
 - added Travis CI config
