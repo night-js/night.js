@@ -1,5 +1,6 @@
 import localStorage from 'mock-local-storage';
 import { assert } from 'chai';
+
 import Night from '../lib/night';
 
 global.window = {};
