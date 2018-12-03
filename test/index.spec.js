@@ -69,6 +69,36 @@ describe('Initialize library', () => {
     assert.equal(test, true);
   });
 
+  it('call onLight method', () => {
+    let test = false;
+
+    night.settings.onLight = () => (test = true);
+
+    night.light();
+
+    assert.equal(test, true);
+  });
+
+  it('call onDark method', () => {
+    let test = false;
+
+    night.settings.onDark = () => (test = true);
+
+    night.dark();
+
+    assert.equal(test, true);
+  });
+
+  it('call onToggle method', () => {
+    let test = false;
+
+    night.settings.onToggle = () => (test = true);
+
+    night.toggle();
+
+    assert.equal(test, true);
+  });
+
   it('call onDenied method', () => {
     let test = false;
 
