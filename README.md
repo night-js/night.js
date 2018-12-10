@@ -4,7 +4,7 @@
 [![NPM downloads](http://img.shields.io/npm/dm/night.js.svg?style=flat-square)](https://www.npmjs.com/package/night.js)
 
 ## How to Install
-At the beginning install the library in Your project via npm or Yarn:
+At the beginning install the library in your project via npm or Yarn:
 ```sh
 $ npm install night.js
 $ yarn add night.js
