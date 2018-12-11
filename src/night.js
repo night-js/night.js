@@ -172,10 +172,10 @@ export default class Night {
 
     const newSettings = {};
 
-    Object.keys(defaultSettings).forEach(property => {
+    for (const property in defaultSettings) {
       if (property in settings) newSettings[property] = settings[property];
       else newSettings[property] = defaultSettings[property];
-    });
+    }
 
     return newSettings;
   }
