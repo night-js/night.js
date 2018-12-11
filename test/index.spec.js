@@ -36,11 +36,7 @@ describe('Initialize library', () => {
 
   it('set auto switch without location', () => {
     night.auto(true);
-    assert.equal(window.localStorage.auto, 'true');
-  });
 
-  it('init auto switch', () => {
-    night.auto(true);
     assert.equal(window.localStorage.auto, 'true');
   });
 
