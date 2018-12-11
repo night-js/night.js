@@ -24,11 +24,13 @@ describe('Initialize library', () => {
     const midnight = new Date().setHours(24, 0, 0, 0);
 
     night.time();
+
     assert.equal(window.localStorage.time, JSON.stringify(midnight));
   });
 
   it('set auto switch', () => {
     night.auto();
+
     assert.equal(window.localStorage.auto, 'true');
   });
 
@@ -44,6 +46,7 @@ describe('Initialize library', () => {
 
   it('set geolocation values', () => {
     night.success(location);
+
     assert.equal(window.localStorage.location, JSON.stringify(location.coords));
   });
 

@@ -38,7 +38,7 @@ export default class Night {
 
   auto(init) {
     if ((init && !localStorage.auto) || !init) {
-      localStorage.setItem('auto', true);
+      localStorage.setItem('auto', 'true');
 
       if (typeof this.settings.onAuto === 'function') this.settings.onAuto();
     }
@@ -128,7 +128,7 @@ export default class Night {
 
     document.body.classList.remove(this.settings.darkClass);
 
-    localStorage.setItem('dark', false);
+    localStorage.setItem('dark', 'false');
   }
 
   dark() {
@@ -142,7 +142,7 @@ export default class Night {
 
     document.body.classList.add(this.settings.darkClass);
 
-    localStorage.setItem('dark', true);
+    localStorage.setItem('dark', 'true');
   }
 
   toggle() {
@@ -150,7 +150,7 @@ export default class Night {
 
     this.isDark ? this.light() : this.dark();
 
-    localStorage.setItem('auto', false);
+    localStorage.setItem('auto', 'false');
   }
 
   extendSettings(settings) {
