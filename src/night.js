@@ -101,9 +101,9 @@ export default class Night {
     );
 
     setInterval(() => {
-      const now = new Date();
+      if (localStorage.auto && JSON.parse(localStorage.auto)) {
+        const now = new Date();
 
-      if (JSON.parse(localStorage.auto)) {
         now.getTime() > sunrise && now.getTime() < sunset
           ? this.light()
           : this.dark();
