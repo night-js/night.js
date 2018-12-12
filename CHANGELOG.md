@@ -1,6 +1,13 @@
 # night.js Changelog
 
-## 1.2.0 (Soon)
+## 1.2.0 beta 2 (2018-12-12)
+#### Bug Fix
+- fixed interval error
+
+#### Repository Changes
+- updated Prettier config
+
+## 1.2.0 beta 1 (2018-12-02)
 #### Internal
 - changed sunset & sunrise values to middle of the time between start and end
 
