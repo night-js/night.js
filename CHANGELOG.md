@@ -1,6 +1,6 @@
 # night.js Changelog
 
-## 1.2.0 beta 2 (2018-12-12)
+## 1.2.0 beta 2 / 1.2.0 (2018-12-12)
 #### Bug Fix
 - fixed interval error
 
