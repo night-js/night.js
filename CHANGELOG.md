@@ -1,5 +1,12 @@
 # night.js Changelog
 
+## Next
+#### New Feature 
+- add element(s) as second param
+- add setCoords method to set coordinates manually (e.g. from location server API)
+- add option to get color from camera API to set additional levels of light and dark mode
+- play sound on theme change
+
 ## 1.2.0 beta 2 / 1.2.0 (2018-12-12)
 #### Bug Fix
 - fixed interval error
