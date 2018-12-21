@@ -1,7 +1,7 @@
 # night.js Changelog
 
 ## Next
-#### New Feature 
+#### New Feature
 - add element(s) as second param
 - add setCoords method to set coordinates manually (e.g. from location server API)
 - add option to get color from camera API to set additional levels of light and dark mode
