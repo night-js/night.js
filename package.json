@@ -54,7 +54,7 @@
     "mocha": "^5.2.0",
     "mock-local-storage": "^1.1.8",
     "prettier": "^1.15.3",
-    "webpack": "^4.27.1",
+    "webpack": "^4.28.2",
     "webpack-cli": "^3.1.2"
   }
 }
