@@ -17,9 +17,7 @@ if (env === 'build') {
 const config = {
   mode,
   entry: `${__dirname}/src/${libraryName}.js`,
-  externals: {
-    suncalc: 'suncalc'
-  },
+  externals: ['suncalc'],
   devtool,
   output: {
     path: `${__dirname}/lib`,
@@ -33,10 +31,8 @@ const config = {
     rules: [
       {
         test: /\.js$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader'
-        }
+        use: 'babel-loader',
+        exclude: /node_modules/
       }
     ]
   }
