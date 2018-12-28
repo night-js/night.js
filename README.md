@@ -3,23 +3,36 @@
 [![NPM version](http://img.shields.io/npm/v/night.js.svg?style=flat-square)](https://www.npmjs.com/package/night.js)
 [![NPM downloads](http://img.shields.io/npm/dm/night.js.svg?style=flat-square)](https://www.npmjs.com/package/night.js)
 
+## About
+night.js is a JavaScript library that implements **smart dark mode switch**, the option to **quickly change the theme** for the whole page / application or any element(s) and other additional options like [functions](#functions), [settings](#settings) or [callback methods](#methods).
+
+User location coordinates and theme settings are saved in the **browser's local storage**.
+
 ## How to Install
-At the beginning install the library in your project via npm or Yarn:
-```sh
+At the beginning install the library in your project via npm:
+```bash
 $ npm install night.js
+```
+
+Or Yarn:
+```bash
 $ yarn add night.js
 ```
 
 ## Getting Started
-**Connect using script tag in HTML:**
+**Connect libary with project using script tag in HTML:**
 ```html
 <script src="/directory/to/library/folder/night.js"></script>
 ```
 
-**Or CommonJS/ES6 import:**
+**ES6 import:**
 ```js
-const Night = require('night.js'); // CommonJS
-import Night from 'night.js'; // ES6
+import Night from 'night.js';
+```
+
+**or CommonJS:**
+```js
+const Night = require('night.js');
 ```
 
 Next use library with:
@@ -60,10 +73,10 @@ night.reset();
 Name | Type | Default | Description | Available options
 -|-|-|-|-
 **auto** | boolean | `true` | Enable smart switch on script init | `true` (enable), `false` (disable)
-**cache** | boolean | `true` | Cache location coordinates in local storage for one day | `true` (enable), `false` (disable)
 **cacheClear** | boolean | `true` | Clear location coordinates in local storage everyday at midnight | `true` (enable), `false` (disable)
-**darkClass** | string | `dark` | Class added to body when dark mode is active | Name of the class
-**lightClass** | string | ` ` | Class added to body when light mode is active | Name of the class
+**cache** | boolean | `true` | Store location coordinates in local storage for one day | `true` (enable), `false` (disable)
+**darkClass** | string | `dark` | Class added to body or element(s) (if set) when dark mode is active | Class name
+**lightClass** | string | ` ` | Class added to body or element(s) (if set) when light mode is active | Class name
 
 ### Methods
 Name | Description | Available options
