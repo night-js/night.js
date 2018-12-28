@@ -26,8 +26,16 @@ Next use library with:
 
 **&bull; Vanilla JavaScript e.g:**
 ```js
+const els = document.querySelectorAll('.adaptive-section');
+
 const night = new Night({
-  // options...
+  elements: els,
+  settings: {
+    // options...
+  },
+  methods: {
+    // callbacks...
+  }
 });
 ```
 
@@ -48,20 +56,25 @@ night.reset();
 ```
 
 ## Options
+### Settings
 Name | Type | Default | Description | Available options
 -|-|-|-|-
-**lightClass** | string | ` ` | Class added to body when light mode is active | Name of the class
-**darkClass** | string | `dark` | Class added to body when dark mode is active | Name of the class
+**auto** | boolean | `true` | Enable smart switch on script init | `true` (enable), `false` (disable)
 **cache** | boolean | `true` | Cache location coordinates in local storage for one day | `true` (enable), `false` (disable)
 **cacheClear** | boolean | `true` | Clear location coordinates in local storage everyday at midnight | `true` (enable), `false` (disable)
-**auto** | boolean | `true` | Enable smart switch on script init | `true` (enable), `false` (disable)
-**onAuto** | function | `null` | Callback on smart switch | `() => { // code }`
-**onLight** | function | `null` | Callback when dark mode is disabled | `() => { // code }`
-**onDark** | function | `null` | Callback when dark mode is enabled | `() => { // code }`
-**onToggle** | function | `null` | Callback on dark/light mode toggle | `() => { // code }`
-**onDenied** | function | `null` | Callback on geolocation permission denied | `() => { // code }`
-**onCacheClear** | function | `null` | Callback when location coordinates and midnight time in local storage cleared | `() => { // code }`
-**onReset** | function | `null` | Callback on localStorage reset | `() => { // code }`
+**darkClass** | string | `dark` | Class added to body when dark mode is active | Name of the class
+**lightClass** | string | ` ` | Class added to body when light mode is active | Name of the class
+
+### Methods
+Name | Description | Available options
+-|-|-
+**onAuto** | Callback on smart switch | `() => { // code }`
+**onCacheClear** | Callback when location coordinates and midnight time in local storage cleared | `() => { // code }`
+**onDark** | Callback when dark mode is enabled | `() => { // code }`
+**onDenied** | Callback on geolocation permission denied | `() => { // code }`
+**onLight** | Callback when dark mode is disabled | `() => { // code }`
+**onReset** | Callback on localStorage reset | `() => { // code }`
+**onToggle** | Callback on dark/light mode toggle | `() => { // code }`
 
 ## Events
 `smartDark` event will output sun position times and user geolocation latitude & longitude
