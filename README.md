@@ -30,7 +30,7 @@ $ yarn add night.js
 import Night from 'night.js';
 ```
 
-**or CommonJS:**
+**Or CommonJS:**
 ```js
 const Night = require('night.js');
 ```

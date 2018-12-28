@@ -1,6 +1,13 @@
 # night.js Changelog
 
+## 2.0.0 beta 1 (Soon)
 #### New Feature
+- rewrite `checkSunPosition` method to allow adding coords manually
+
+#### Repository Changes
+- update npm scripts
+- clean up Webpack config
+- remove unused dependencies
 
 ## 1.2.0 beta 2 / 1.2.0 (2018-12-12)
 #### Bug Fix
