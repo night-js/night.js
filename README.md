@@ -8,6 +8,9 @@ night.js is a JavaScript library that implements **smart dark mode switch**, the
 
 User location coordinates and theme settings are saved in the **browser's local storage**.
 
+### Demo
+**[See plugin in action](https://jb1905.github.io/night.js/)**
+
 ## How to Install
 At the beginning install the library in your project via npm:
 ```bash
@@ -22,7 +25,7 @@ $ yarn add night.js
 ## Getting Started
 **Connect libary with project using script tag in HTML:**
 ```html
-<script src="/directory/to/library/folder/night.js"></script>
+<script src="/path/to/night.js"></script>
 ```
 
 **ES6 import:**
@@ -72,22 +75,22 @@ night.reset();
 ### Settings
 Name | Type | Default | Description | Available options
 -|-|-|-|-
-**auto** | boolean | `true` | Enable smart switch on script init | `true` (enable), `false` (disable)
-**cacheClear** | boolean | `true` | Clear location coordinates in local storage everyday at midnight | `true` (enable), `false` (disable)
-**cache** | boolean | `true` | Store location coordinates in local storage for one day | `true` (enable), `false` (disable)
+**auto** | boolean | `true` | Activate smart switch on library init | `true` (enable), `false` (disable)
 **darkClass** | string | `dark` | Class added to body or element(s) (if set) when dark mode is active | Class name
 **lightClass** | string | ` ` | Class added to body or element(s) (if set) when light mode is active | Class name
+**storage** | boolean | `true` | Store location coordinates in local storage for one day | `true` (enable), `false` (disable)
+**storageClear** | boolean | `true` | Clear location coordinates data in local storage everyday at midnight | `true` (enable), `false` (disable)
 
 ### Methods
 Name | Description | Available options
 -|-|-
 **onAuto** | Callback on smart switch | `() => { // code }`
-**onCacheClear** | Callback when location coordinates and midnight time in local storage cleared | `() => { // code }`
 **onDark** | Callback when dark mode is enabled | `() => { // code }`
 **onDenied** | Callback on geolocation permission denied | `() => { // code }`
 **onLight** | Callback when dark mode is disabled | `() => { // code }`
 **onReset** | Callback on localStorage reset | `() => { // code }`
 **onToggle** | Callback on dark/light mode toggle | `() => { // code }`
+**onStorageClear** | Callback during deleting location coordinates and midnight time from local storage | `() => { // code }`
 
 ## Events
 `smartDark` event will output sun position times and user geolocation latitude & longitude

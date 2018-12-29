@@ -1,6 +1,11 @@
 # night.js Changelog
 
 ## 2.0.0 beta 1 (Soon)
+#### Breaking Changes
+- split `options` prop into `settings` and `methods`
+- rename option `onCacheClear` to `onStorageClear`
+- rename option `cache` to `storage`
+
 #### New Feature
 - rewrite `checkSunPosition` method to allow adding coords manually
 
