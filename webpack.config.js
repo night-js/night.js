@@ -25,7 +25,7 @@ const config = {
     library: 'Night',
     libraryTarget: 'umd',
     umdNamedDefine: true,
-    globalObject: 'global'
+    globalObject: 'typeof window !== "object" ? global.window = global : window'
   },
   module: {
     rules: [

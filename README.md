@@ -42,10 +42,10 @@ Next use library with:
 
 **&bull; Vanilla JavaScript e.g:**
 ```js
-const els = document.querySelectorAll('.adaptive-section');
+const elems = document.querySelectorAll('.adaptive-section');
 
 const night = new Night({
-  elements: els,
+  elements: elems,
   settings: {
     // options...
   },
@@ -84,13 +84,13 @@ Name | Type | Default | Description | Available options
 ### Methods
 Name | Description | Available options
 -|-|-
-**onAuto** | Callback on smart switch | `() => { // code }`
-**onDark** | Callback when dark mode is enabled | `() => { // code }`
-**onDenied** | Callback on geolocation permission denied | `() => { // code }`
-**onLight** | Callback when dark mode is disabled | `() => { // code }`
-**onReset** | Callback on localStorage reset | `() => { // code }`
-**onToggle** | Callback on dark/light mode toggle | `() => { // code }`
+**onAuto** | Callback during smart switch | `() => { // code }`
+**onDark** | Callback during dark mode activation | `() => { // code }`
+**onDenied** | Callback when geolocation permission denied | `() => { // code }`
+**onLight** | Callback during light mode activation | `() => { // code }`
+**onReset** | Callback during local storage reset | `() => { // code }`
 **onStorageClear** | Callback during deleting location coordinates and midnight time from local storage | `() => { // code }`
+**onToggle** | Callback during color theme toggle | `() => { // code }`
 
 ## Events
 `smartDark` event will output sun position times and user geolocation latitude & longitude

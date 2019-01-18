@@ -1,8 +1,11 @@
 import SunCalc from 'suncalc';
 
 export default class Night {
-  constructor(settings = {}) {
-    this.settings = this.extendSettings(settings);
+  constructor(data = {}) {
+    this.elements = data.elements || document.body;
+    this.methods = data.methods || {};
+
+    this.settings = this.extendSettings(data.settings || {});
 
     this.today = new Date();
 
@@ -24,11 +27,11 @@ export default class Night {
     ) {
       localStorage.removeItem('time');
 
-      if (this.settings.cacheClear) {
+      if (this.settings.storageClear) {
         localStorage.removeItem('location');
 
-        if (typeof this.settings.onCacheClear === 'function') {
-          this.settings.onCacheClear();
+        if (typeof this.methods.onStorageClear === 'function') {
+          this.methods.onStorageClear();
         }
       }
     }
@@ -40,7 +43,7 @@ export default class Night {
     if ((init && !localStorage.auto) || !init) {
       localStorage.setItem('auto', 'true');
 
-      if (typeof this.settings.onAuto === 'function') this.settings.onAuto();
+      if (typeof this.methods.onAuto === 'function') this.methods.onAuto();
     }
 
     if ('geolocation' in navigator) this.myLocation();
@@ -64,14 +67,14 @@ export default class Night {
 
     this.checkSunPosition(location.latitude, location.longitude);
 
-    if (this.settings.cache) {
+    if (this.settings.storage) {
       localStorage.setItem('location', JSON.stringify(location));
     }
   };
 
   error = err => {
-    if (typeof this.settings.onDenied === 'function') {
-      this.settings.onDenied();
+    if (typeof this.methods.onDenied === 'function') {
+      this.methods.onDenied();
     }
 
     document.dispatchEvent(
@@ -114,39 +117,55 @@ export default class Night {
   reset() {
     localStorage.clear();
 
-    if (typeof this.settings.onReset === 'function') this.settings.onReset();
+    if (typeof this.methods.onReset === 'function') this.methods.onReset();
   }
 
   light() {
-    if (typeof this.settings.onLight === 'function') this.settings.onLight();
+    if (typeof this.methods.onLight === 'function') this.methods.onLight();
 
     this.isDark = false;
 
-    if (this.settings.lightClass) {
-      document.body.classList.add(this.settings.lightClass);
-    }
+    const changeTheme = element => {
+      if (this.settings.lightClass) {
+        element.classList.add(this.settings.lightClass);
+      }
 
-    document.body.classList.remove(this.settings.darkClass);
+      element.classList.remove(this.settings.darkClass);
+    };
+
+    if (this.elements instanceof NodeList) {
+      Object.values(this.elements).map(element => changeTheme(element));
+    } else {
+      changeTheme(this.elements);
+    }
 
     localStorage.setItem('dark', 'false');
   }
 
   dark() {
-    if (typeof this.settings.onDark === 'function') this.settings.onDark();
+    if (typeof this.methods.onDark === 'function') this.methods.onDark();
 
     this.isDark = true;
 
-    if (this.settings.lightClass) {
-      document.body.classList.remove(this.settings.lightClass);
-    }
+    const changeTheme = element => {
+      if (this.settings.lightClass) {
+        element.classList.remove(this.settings.lightClass);
+      }
 
-    document.body.classList.add(this.settings.darkClass);
+      element.classList.add(this.settings.darkClass);
+    };
+
+    if (this.elements instanceof NodeList) {
+      Object.values(this.elements).map(element => changeTheme(element));
+    } else {
+      changeTheme(this.elements);
+    }
 
     localStorage.setItem('dark', 'true');
   }
 
   toggle() {
-    if (typeof this.settings.onToggle === 'function') this.settings.onToggle();
+    if (typeof this.methods.onToggle === 'function') this.methods.onToggle();
 
     this.isDark ? this.light() : this.dark();
 
@@ -155,19 +174,11 @@ export default class Night {
 
   extendSettings(settings) {
     const defaultSettings = {
-      lightClass: '', // class added to body when dark mode is disabled
-      darkClass: 'dark', // class added to body when dark mode is enabled
-      cache: true, // cache location coordinates in local storage
-      cacheClear: true, // clear location coordinates in local storage everyday at midnight
       auto: true, // enable smart switch on script init
-
-      onAuto: null, // callback on smart switch
-      onLight: null, // callback when dark mode is disabled
-      onDark: null, // callback when dark mode is enabled
-      onToggle: null, // callback on dark/light mode toggle
-      onDenied: null, // callback on geolocation permission deined
-      onCacheClear: null, // callback when location coordinates and midnight time in local storage cleared
-      onReset: null // callback on localStorage reset
+      darkClass: 'dark', // class added when dark mode is enabled
+      lightClass: '', // class added when dark mode is disabled
+      storage: true, // store location coordinates in local storage
+      storageClear: true // clear location coordinates in local storage everyday at midnight
     };
 
     const newSettings = {};

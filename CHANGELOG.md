@@ -2,17 +2,18 @@
 
 ## 2.0.0 beta 1 (Soon)
 #### Breaking Changes
-- split `options` prop into `settings` and `methods`
-- rename option `onCacheClear` to `onStorageClear`
-- rename option `cache` to `storage`
+- splitted `options` prop into `settings` and `methods`
+- renamed option `onCacheClear` to `onStorageClear`
+- renamed option `cache` to `storage`
 
 #### New Feature
 - rewrite `checkSunPosition` method to allow adding coords manually
+- added `elements` prop
 
 #### Repository Changes
-- update npm scripts
-- clean up Webpack config
-- remove unused dependencies
+- updated npm scripts
+- cleaned up Webpack config
+- removed unused dependencies
 
 ## 1.2.0 beta 2 / 1.2.0 (2018-12-12)
 #### Bug Fix
