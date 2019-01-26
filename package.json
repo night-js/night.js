@@ -43,6 +43,7 @@
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.5",
     "eslint": "^5.12.1",
+    "eslint-config-prettier": "^4.0.0",
     "eslint-plugin-prettier": "^3.0.1",
     "gh-pages": "^2.0.1",
     "jest": "^24.0.0",
