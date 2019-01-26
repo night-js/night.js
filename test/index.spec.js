@@ -1,7 +1,4 @@
-import localStorage from 'mock-local-storage';
-import { assert } from 'chai';
-
-import Night from '../lib/night';
+import Night from '../src/night';
 
 global.window = {};
 
@@ -10,7 +7,7 @@ describe('Initialize library', () => {
 
   const night = new Night();
 
-  before(() => setStore());
+  beforeAll(() => setStore());
   afterEach(() => setStore());
 
   const location = {
@@ -20,102 +17,143 @@ describe('Initialize library', () => {
     }
   };
 
-  it('set midnight time', () => {
+  test('set midnight time', () => {
     const midnight = new Date().setHours(24, 0, 0, 0);
 
     night.time();
 
-    assert.equal(window.localStorage.time, JSON.stringify(midnight));
+    expect(window.localStorage.time).toEqual(JSON.stringify(midnight));
   });
 
-  it('set auto switch', () => {
+  test('set auto switch', () => {
     night.auto();
 
-    assert.equal(window.localStorage.auto, 'true');
+    expect(window.localStorage.auto).toEqual('true');
   });
 
-  it('set auto switch without location', () => {
+  test('set auto switch without location', () => {
     night.auto(true);
 
-    assert.equal(window.localStorage.auto, 'true');
+    expect(window.localStorage.auto).toEqual('true');
   });
 
-  it('set geolocation values', () => {
+  test('set geolocation values', () => {
     night.success(location);
 
-    assert.equal(window.localStorage.location, JSON.stringify(location.coords));
+    expect(window.localStorage.location).toEqual(
+      JSON.stringify(location.coords)
+    );
   });
 
-  it('reset localStorage', () => {
+  test('check my location with localStorage', () => {
+    window.localStorage.location = JSON.stringify(location.coords);
+
+    night.myLocation();
+  });
+
+  test('reset localStorage', () => {
     window.localStorage.location = JSON.stringify(location.coords);
     window.localStorage.dark = 'false';
     window.localStorage.auto = 'true';
 
     night.reset();
 
-    assert.equal(window.localStorage.location, null);
-    assert.equal(window.localStorage.dark, null);
-    assert.equal(window.localStorage.auto, null);
+    expect(window.localStorage.location).toEqual(undefined);
+    expect(window.localStorage.dark).toEqual(undefined);
+    expect(window.localStorage.auto).toEqual(undefined);
   });
 
-  it('call onAuto method', () => {
-    let test = false;
-
-    night.settings.onAuto = () => (test = true);
-
-    night.auto();
-
-    assert.equal(test, true);
-  });
-
-  it('call onLight method', () => {
-    let test = false;
-
-    night.settings.onLight = () => (test = true);
+  test('set lightClass name', () => {
+    night.settings.lightClass = 'lightClass';
 
     night.light();
 
-    assert.equal(test, true);
+    expect(document.body.classList.contains('lightClass')).toEqual(true);
   });
 
-  it('call onDark method', () => {
-    let test = false;
-
-    night.settings.onDark = () => (test = true);
+  test('set darkClass name', () => {
+    night.settings.darkClass = 'darkClass';
 
     night.dark();
 
-    assert.equal(test, true);
+    expect(document.body.classList.contains('darkClass')).toEqual(true);
   });
 
-  it('call onToggle method', () => {
+  test('call onAuto method', () => {
     let test = false;
 
-    night.settings.onToggle = () => (test = true);
+    night.methods.onAuto = () => (test = true);
+
+    night.auto();
+
+    expect(test).toEqual(true);
+  });
+
+  test('call onLight method', () => {
+    let test = false;
+
+    night.methods.onLight = () => (test = true);
+
+    night.light();
+
+    expect(test).toEqual(true);
+  });
+
+  test('call onDark method', () => {
+    let test = false;
+
+    night.methods.onDark = () => (test = true);
+
+    night.dark();
+
+    expect(test).toEqual(true);
+  });
+
+  test('call onToggle method', () => {
+    let test = false;
+
+    night.methods.onToggle = () => (test = true);
 
     night.toggle();
 
-    assert.equal(test, true);
+    expect(test).toEqual(true);
   });
 
-  it('call onDenied method', () => {
+  test('call onDenied method', () => {
     let test = false;
 
-    night.settings.onDenied = () => (test = true);
+    night.methods.onDenied = () => (test = true);
 
     night.error();
 
-    assert.equal(test, true);
+    expect(test).toEqual(true);
   });
 
-  it('call onReset method', () => {
+  test('call onStorageClear method', () => {
+    const setTime = new Date().getHours() - 1;
+
+    window.localStorage.location = JSON.stringify(location.coords);
+    window.localStorage.time = new Date().setHours(setTime, 0, 0, 0);
+
     let test = false;
 
-    night.settings.onReset = () => (test = true);
+    night.methods.onStorageClear = () => (test = true);
+
+    night.time(new Date());
+
+    expect(test).toEqual(true);
+
+    window.localStorage.time = null;
+  });
+
+  test('call onReset method', () => {
+    let test = false;
+
+    night.methods.onReset = () => (test = true);
 
     night.reset();
 
-    assert.equal(test, true);
+    expect(test).toEqual(true);
 
     window.localStorage.auto = null;
   });
