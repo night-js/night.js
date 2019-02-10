@@ -1,41 +1,40 @@
-const env = require('yargs').argv.env;
+module.exports = env => {
+  const libraryName = 'night';
 
-const libraryName = 'night';
+  let outputFile, mode, devtool;
 
-let outputFile, mode, devtool;
-
-if (env === 'build') {
-  mode = 'production';
-  outputFile = `${libraryName}.min.js`;
-  devtool = false;
-} else {
-  mode = 'development';
-  outputFile = `${libraryName}.js`;
-  devtool = 'source-map';
-}
-
-const config = {
-  mode,
-  entry: `${__dirname}/src/${libraryName}.js`,
-  externals: ['suncalc'],
-  devtool,
-  output: {
-    path: `${__dirname}/lib`,
-    filename: outputFile,
-    library: 'Night',
-    libraryTarget: 'umd',
-    umdNamedDefine: true,
-    globalObject: 'typeof window !== "object" ? global.window = global : window'
-  },
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/
-      }
-    ]
+  if (env === 'build') {
+    mode = 'production';
+    outputFile = `${libraryName}.min.js`;
+    devtool = false;
+  } else {
+    mode = 'development';
+    outputFile = `${libraryName}.js`;
+    devtool = 'source-map';
   }
-};
 
-module.exports = config;
+  return {
+    mode,
+    entry: `${__dirname}/src/${libraryName}.js`,
+    externals: ['suncalc'],
+    devtool,
+    output: {
+      path: `${__dirname}/lib`,
+      filename: outputFile,
+      library: 'Night',
+      libraryTarget: 'umd',
+      umdNamedDefine: true,
+      globalObject:
+        'typeof window !== "object" ? global.window = global : window'
+    },
+    module: {
+      rules: [
+        {
+          test: /\.js$/,
+          loader: 'babel-loader',
+          exclude: /node_modules/
+        }
+      ]
+    }
+  };
+};
