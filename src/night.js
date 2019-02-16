@@ -3,7 +3,7 @@ import SunCalc from 'suncalc';
 export default class Night {
   constructor(data = {}) {
     this.elements = data.elements || document.body;
-    this.methods = data.methods || {};
+    this.callbacks = data.callbacks || {};
 
     this.settings = this.extendSettings(data.settings || {});
 
@@ -30,8 +30,8 @@ export default class Night {
       if (this.settings.storageClear) {
         localStorage.removeItem('location');
 
-        if (typeof this.methods.onStorageClear === 'function') {
-          this.methods.onStorageClear();
+        if (typeof this.callbacks.onStorageClear === 'function') {
+          this.callbacks.onStorageClear();
         }
       }
     }
@@ -43,7 +43,7 @@ export default class Night {
     if ((init && !localStorage.auto) || !init) {
       localStorage.setItem('auto', 'true');
 
-      if (typeof this.methods.onAuto === 'function') this.methods.onAuto();
+      if (typeof this.callbacks.onAuto === 'function') this.callbacks.onAuto();
     }
 
     if ('geolocation' in navigator) this.myLocation();
@@ -73,8 +73,8 @@ export default class Night {
   };
 
   error = err => {
-    if (typeof this.methods.onDenied === 'function') {
-      this.methods.onDenied();
+    if (typeof this.callbacks.onDenied === 'function') {
+      this.callbacks.onDenied();
     }
 
     document.dispatchEvent(
@@ -117,11 +117,11 @@ export default class Night {
   reset() {
     localStorage.clear();
 
-    if (typeof this.methods.onReset === 'function') this.methods.onReset();
+    if (typeof this.callbacks.onReset === 'function') this.callbacks.onReset();
   }
 
   light() {
-    if (typeof this.methods.onLight === 'function') this.methods.onLight();
+    if (typeof this.callbacks.onLight === 'function') this.callbacks.onLight();
 
     this.isDark = false;
 
@@ -143,7 +143,7 @@ export default class Night {
   }
 
   dark() {
-    if (typeof this.methods.onDark === 'function') this.methods.onDark();
+    if (typeof this.callbacks.onDark === 'function') this.callbacks.onDark();
 
     this.isDark = true;
 
@@ -165,7 +165,9 @@ export default class Night {
   }
 
   toggle() {
-    if (typeof this.methods.onToggle === 'function') this.methods.onToggle();
+    if (typeof this.callbacks.onToggle === 'function') {
+      this.callbacks.onToggle();
+    }
 
     this.isDark ? this.light() : this.dark();
 

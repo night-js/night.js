@@ -14,6 +14,7 @@
 - updated npm scripts
 - cleaned up Webpack config
 - removed unused dependencies
+- moved from Mocha to Jest
 
 ## 1.2.0 beta 2 / 1.2.0 (2018-12-12)
 #### Bug Fix
