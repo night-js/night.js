@@ -49,7 +49,7 @@ const night = new Night({
   settings: {
     // options...
   },
-  methods: {
+  callbacks: {
     // callbacks...
   }
 });
@@ -81,16 +81,16 @@ Name | Type | Default | Description | Available options
 **storage** | boolean | `true` | Store location coordinates in local storage for one day | `true` (enable), `false` (disable)
 **storageClear** | boolean | `true` | Clear location coordinates data in local storage everyday at midnight | `true` (enable), `false` (disable)
 
-### Methods
+### Callbacks
 Name | Description | Available options
 -|-|-
-**onAuto** | Callback during smart switch | `() => { // code }`
-**onDark** | Callback during dark mode activation | `() => { // code }`
-**onDenied** | Callback when geolocation permission denied | `() => { // code }`
-**onLight** | Callback during light mode activation | `() => { // code }`
-**onReset** | Callback during local storage reset | `() => { // code }`
-**onStorageClear** | Callback during deleting location coordinates and midnight time from local storage | `() => { // code }`
-**onToggle** | Callback during color theme toggle | `() => { // code }`
+**onAuto** | Callback during smart switch | `() => { /* code */ }`
+**onDark** | Callback during dark mode activation | `() => { /* code */ }`
+**onDenied** | Callback when geolocation permission denied | `() => { /* code */ }`
+**onLight** | Callback during light mode activation | `() => { /* code */ }`
+**onReset** | Callback during local storage reset | `() => { /* code */ }`
+**onStorageClear** | Callback during deleting location coordinates and midnight time from local storage | `() => { /* code */ }`
+**onToggle** | Callback during color theme toggle | `() => { /* code */ }`
 
 ## Events
 `smartDark` event will output sun position times and user geolocation latitude & longitude
