@@ -1,4 +1,4 @@
-import SunCalc from 'suncalc';
+import SunCalc from 'suncalc2';
 
 export default class Night {
   constructor(data = {}) {

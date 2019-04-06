@@ -16,7 +16,7 @@ module.exports = env => {
   return {
     mode,
     entry: `${__dirname}/src/index.js`,
-    externals: ['suncalc'],
+    externals: ['suncalc2'],
     devtool,
     output: {
       path: `${__dirname}/lib`,

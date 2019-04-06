@@ -11,6 +11,7 @@
 - added `elements` prop
 
 #### Repository Changes
+- switched from suncalc to suncalc2
 - updated npm scripts
 - cleaned up Webpack config
 - removed unused dependencies
