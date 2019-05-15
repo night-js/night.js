@@ -57,8 +57,8 @@ const night = new Night({
 });
 ```
 
-## Functions
-**&bull; Switch between light and dark mode:**
+## Methods
+**• Switch between light and dark mode:**
 ```js
 night.toggle();
 ```
