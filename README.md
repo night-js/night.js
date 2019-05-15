@@ -92,7 +92,7 @@ night.destroy();
 ### Settings
 Name | Type | Default | Description | Available options
 -|-|-|-|-
-**mode** | `smart` or `color-scheme` | `smart` | Mode of theme change detection | `smart` - based on geolocation and time, `color-scheme` - based on `prefers-color-scheme` value
+**mode** | string | `smart` | Mode of theme change detection | `smart` - based on geolocation and time, `color-scheme` - based on `prefers-color-scheme` value
 **auto** | boolean | `true` | Activate smart switch on library init | `true` (enable), `false` (disable)
 **darkClass** | string | `dark` | Class added to body when dark mode is active | Class name
 **lightClass** | string | ` ` | Class added to body when light mode is active | Class name
