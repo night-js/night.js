@@ -4,7 +4,7 @@
 [![NPM downloads](http://img.shields.io/npm/dm/night.js.svg?style=flat-square)](https://www.npmjs.com/package/night.js)
 
 ## About
-night.js is a JavaScript library that implements **smart dark mode switch**, the option to **quickly change the theme** for the whole page / application or any element(s) and other additional options like [functions](#functions), [settings](#settings) or [callback methods](#methods).
+night.js is a JavaScript library that implements **smart dark mode switch**, the option to **quickly change the theme** for the whole page / application or any element(s) and other additional options like [methods](#methods), [settings](#settings) or [callback methods](#methods).
 
 User location coordinates and theme settings are saved in the **browser's local storage**.
 
@@ -92,7 +92,7 @@ night.destroy();
 ### Settings
 Name | Type | Default | Description | Available options
 -|-|-|-|-
-**mode** | string | `smart` | Mode of theme change detection | `smart` - based on geolocation and time, `color-scheme` - based on `prefers-color-scheme` value
+**mode** | string | `smart` | Mode of theme change detection | `smart` - based on geolocation and time, `color-scheme` - based on prefers-color-scheme value
 **auto** | boolean | `true` | Activate smart switch on library init | `true` (enable), `false` (disable)
 **darkClass** | string | `dark` | Class added to body when dark mode is active | Class name
 **lightClass** | string | ` ` | Class added to body when light mode is active | Class name
