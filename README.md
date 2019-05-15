@@ -102,7 +102,7 @@ Name | Type | Default | Description | Available options
 **permissionDelay** | number | `0` | Dealy before display query for location permission (in miliseconds) | e.g.: `3000`
 **storage** | boolean | `true` | Store location coordinates in local storage for one day | `true` (enable), `false` (disable)
 **storageClear** | boolean | `true` | Clear location coordinates data in local storage everyday at midnight | `true` (enable), `false` (disable)
-**soundUrl** | string | ` ` | Source of the audio file | e.g.: `https"//example.com/song.mp3`
+**soundUrl** | string | ` ` | Source of the audio file | e.g.: `https://example.com/song.mp3`
 **soundTimeout** | number | `1000` | Time before stop sound playing (in miliseconds) | e.g.: `2500`
 
 ### Callbacks
