@@ -22,6 +22,11 @@ Or Yarn:
 $ yarn add night.js
 ```
 
+**You can also connect script via one of CDNs:**<br>
+bundle.run: `https://bundle.run/night.js`<br>
+jsDelivr: `https://cdn.jsdelivr.net/npm/night.js/`<br>
+unpkg: `https://unpkg.com/night.js/`
+
 ## Getting Started
 **Connect libary with project using script tag in HTML:**
 ```html
@@ -42,10 +47,7 @@ Next use library with:
 
 **&bull; Vanilla JavaScript e.g:**
 ```js
-const elems = document.querySelectorAll('.adaptive-section');
-
 const night = new Night({
-  elements: elems,
   settings: {
     // options...
   },
@@ -66,29 +68,58 @@ night.toggle();
 night.auto();
 ```
 
+**• Set coords manually:**
+```js
+night.setCoords(latitude, longitude);
+```
+
+**• Set times manually:**
+```js
+night.setTimes(sunrise, sunset);
+```
+
 **• Reset localStorage data:**
 ```js
 night.reset();
+```
+
+**• Destroy changes listening:**
+```js
+night.destroy();
 ```
 
 ## Options
 ### Settings
 Name | Type | Default | Description | Available options
 -|-|-|-|-
+**mode** | `smart` or `color-scheme` | `smart` | Mode of theme change detection | `smart` - based on geolocation and time, `color-scheme` - based on `prefers-color-scheme` value
 **auto** | boolean | `true` | Activate smart switch on library init | `true` (enable), `false` (disable)
-**darkClass** | string | `dark` | Class added to body or element(s) (if set) when dark mode is active | Class name
-**lightClass** | string | ` ` | Class added to body or element(s) (if set) when light mode is active | Class name
+**darkClass** | string | `dark` | Class added to body when dark mode is active | Class name
+**lightClass** | string | ` ` | Class added to body when light mode is active | Class name
+**brightness** | boolean | `false` | Enable additional theme modes based on devicelight value (if supported) | `true` (enable), `false` (disable)
+**brightnessHighClass** | string | `high-brightness` | Class added to body on detect high value of devicelight event | Class name
+**brightnessLowClass** | string | `low-brightness` | Class added to body on detect low value of devicelight event | Class name
+**permissionDelay** | number | `0` | Dealy before display query for location permission (in miliseconds) | e.g.: `3000`
 **storage** | boolean | `true` | Store location coordinates in local storage for one day | `true` (enable), `false` (disable)
 **storageClear** | boolean | `true` | Clear location coordinates data in local storage everyday at midnight | `true` (enable), `false` (disable)
+**soundUrl** | string | ` ` | Source of the audio file | e.g.: `https"//example.com/song.mp3`
+**soundTimeout** | number | `1000` | Time before stop sound playing (in miliseconds) | e.g.: `2500`
 
 ### Callbacks
 Name | Description | Available options
 -|-|-
+**onAccess** | Callback during access to geolocation values | `() => { /* code */ }`
+**onAccessDenied** | Callback when access to geolocation values is deined | `() => { /* code */ }`
+**onBrightness** | Callback when devicelight event is supported | `() => { /* code */ }`
+**onBrightnessNotSupported** | Callback when devicelight event isn't supported | `() => { /* code */ }`
 **onAuto** | Callback during smart switch | `() => { /* code */ }`
 **onDark** | Callback during dark mode activation | `() => { /* code */ }`
 **onDenied** | Callback when geolocation permission denied | `() => { /* code */ }`
+**onInit** | Callback during plugin init | `() => { /* code */ }`
 **onLight** | Callback during light mode activation | `() => { /* code */ }`
 **onReset** | Callback during local storage reset | `() => { /* code */ }`
+**onSoundPlay** | Callback during stop playing sound | `() => { /* code */ }`
+**onSoundPause** | Callback during start playing sound | `() => { /* code */ }`
 **onStorageClear** | Callback during deleting location coordinates and midnight time from local storage | `() => { /* code */ }`
 **onToggle** | Callback during color theme toggle | `() => { /* code */ }`
 

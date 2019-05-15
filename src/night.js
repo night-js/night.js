@@ -1,22 +1,198 @@
-import SunCalc from 'suncalc2';
+// @flow
+
+type Coords = {
+  latitude: Number,
+  longitude: Number
+};
+
+type Times = {
+  sunrise: Number,
+  sunset: Number
+};
 
 export default class Night {
+  #callbacks;
+  #settings;
+
+  #isInit: Boolean;
+  #isDark: Boolean;
+
+  #isPlaying: Boolean = false;
+  #isListening: Boolean = true;
+
+  #coords: Coords | Object = {};
+  #autoCoords: Boolean = true;
+
+  #times: Times | Object = {};
+  #autoTimes: Boolean = true;
+
+  #matchLight: Boolean;
+  #matchDark: Boolean;
+
+  #today: Date = new Date();
+
   constructor(data = {}) {
-    this.elements = data.elements || document.body;
-    this.callbacks = data.callbacks || {};
+    this.#callbacks = data.callbacks || {};
+    this.#settings = this.#extendSettings(data.settings || {});
 
-    this.settings = this.extendSettings(data.settings || {});
+    this.#isInit = this.#settings.auto;
 
-    this.today = new Date();
-
-    setInterval(() => this.time(new Date()), 1000);
-
-    if (this.settings.auto) this.auto(true);
-
-    this.theme();
+    this.#init();
   }
 
-  time(now) {
+  #init() {
+    if (this.#isListening) {
+      setInterval(() => {
+        if (this.#settings.mode === 'color-scheme') {
+          this.#matchDark = window.matchMedia(
+            '(prefers-color-scheme: dark)'
+          ).matches;
+
+          this.#matchLight = window.matchMedia(
+            '(prefers-color-scheme: light)'
+          ).matches;
+
+          if (this.#matchDark || this.#matchLight) {
+            this.#prefersColorScheme();
+
+            if (
+              this.#isInit &&
+              typeof this.#callbacks.onColorScheme === 'function'
+            ) {
+              this.#callbacks.onColorScheme();
+            }
+          } else {
+            if (
+              this.#isInit &&
+              typeof this.#callbacks.onColorSchemeNotSupported === 'function'
+            ) {
+              this.#callbacks.onColorSchemeNotSupported();
+            }
+          }
+
+          this.#isInit = false;
+        } else if (this.#settings.mode === 'smart') {
+          this.#time(new Date());
+
+          this.smartSwitch(this.#isInit);
+        }
+
+        this.#switchOnChange();
+      });
+    }
+
+    if (typeof this.#callbacks.onInit == 'function') {
+      this.#callbacks.onInit();
+    }
+
+    if (this.#settings.brightness) {
+      this.#ambientLight();
+    }
+  }
+
+  #ambientLight() {
+    if ('ondevicelight' in window) {
+      window.addEventListener('devicelight', e => {
+        if (e.value < 50) {
+          document.body.classList.add(this.#settings.brightnessLowClass);
+          document.body.classList.remove(this.#settings.brightnessHighClass);
+        } else {
+          document.body.classList.add(this.#settings.brightnessHighClass);
+          document.body.classList.remove(this.#settings.brightnessLowClass);
+        }
+      });
+
+      if (typeof this.#callbacks.onBrightness === 'function') {
+        this.#callbacks.onBrightness();
+      }
+    } else {
+      if (typeof this.#callbacks.onBrightnessNotSupported === 'function') {
+        this.#callbacks.onBrightnessNotSupported();
+      }
+    }
+  }
+
+  #sound() {
+    if (!this.#isPlaying) {
+      const audio = new Audio(this.#settings.soundUrl);
+
+      this.#isPlaying = true;
+
+      audio.play();
+
+      if (typeof this.#callbacks.onSoundPlay === 'function') {
+        this.#callbacks.onSoundPlay();
+      }
+
+      setTimeout(() => {
+        audio.pause();
+        audio.currentTime = 0;
+
+        this.#isPlaying = false;
+
+        if (typeof this.#callbacks.onSoundPause === 'function') {
+          this.#callbacks.onSoundPause();
+        }
+      }, this.#settings.soundTimeout);
+    }
+  }
+
+  light() {
+    if (typeof this.#callbacks.onLight === 'function') {
+      this.#callbacks.onLight();
+    }
+
+    this.#isDark = false;
+
+    if (this.#settings.lightClass) {
+      document.body.classList.add(this.#settings.lightClass);
+    }
+
+    document.body.classList.remove(this.#settings.darkClass);
+
+    localStorage.setItem('dark', 'false');
+  }
+
+  dark() {
+    if (typeof this.#callbacks.onDark === 'function') {
+      this.#callbacks.onDark();
+    }
+
+    this.#isDark = true;
+
+    if (this.#settings.lightClass) {
+      document.body.classList.remove(this.#settings.lightClass);
+    }
+
+    document.body.classList.add(this.#settings.darkClass);
+
+    localStorage.setItem('dark', 'true');
+  }
+
+  #prefersColorScheme() {
+    if (this.#matchDark) this.dark();
+    else if (this.#matchLight) this.light();
+  }
+
+  smartSwitch(isInit: Boolean) {
+    if ((isInit && !localStorage.auto) || !isInit) {
+      localStorage.setItem('auto', 'true');
+
+      if (typeof this.#callbacks.onSmartSwitch === 'function') {
+        this.#callbacks.onSmartSwitch();
+      }
+    }
+
+    if ('geolocation' in navigator && this.#isInit) {
+      this.#myLocation();
+    }
+
+    if (isInit) this.#isInit = false;
+
+    this.#theme(this.#isDark);
+  }
+
+  #time(now: Date) {
     const midnight = new Date().setHours(24, 0, 0, 0);
 
     if (!localStorage.time) {
@@ -27,160 +203,159 @@ export default class Night {
     ) {
       localStorage.removeItem('time');
 
-      if (this.settings.storageClear) {
+      if (this.#settings.storageClear) {
         localStorage.removeItem('location');
 
-        if (typeof this.callbacks.onStorageClear === 'function') {
-          this.callbacks.onStorageClear();
+        if (typeof this.#callbacks.onStorageClear === 'function') {
+          this.#callbacks.onStorageClear();
         }
       }
     }
   }
 
-  theme = () => (localStorage.dark === 'true' ? this.dark() : this.light());
-
-  auto(init) {
-    if ((init && !localStorage.auto) || !init) {
-      localStorage.setItem('auto', 'true');
-
-      if (typeof this.callbacks.onAuto === 'function') this.callbacks.onAuto();
+  #theme(isDark) {
+    if (isDark !== this.#isDark) {
+      isDark ? this.dark() : this.light();
     }
-
-    if ('geolocation' in navigator) this.myLocation();
   }
 
-  myLocation() {
-    if (!localStorage.location) {
-      navigator.geolocation.getCurrentPosition(this.success, this.error);
+  #switchOnChange() {
+    const { sunrise, sunset } = this.#times;
+    const { latitude, longitude } = this.#coords;
+
+    if (localStorage.auto && JSON.parse(localStorage.auto)) {
+      const now = new Date();
+
+      if (now.getTime() > sunrise && now.getTime() < sunset) {
+        this.light();
+      } else {
+        this.dark();
+      }
+    }
+
+    document.dispatchEvent(
+      new CustomEvent('smartDark', {
+        detail: {
+          sunrise: new Date(sunrise),
+          sunset: new Date(sunset),
+          latitude,
+          longitude
+        }
+      })
+    );
+  }
+
+  #myLocation() {
+    if (localStorage.location || !this.#autoCoords) {
+      if (this.#autoCoords) {
+        this.#coords = JSON.parse(localStorage.location);
+      }
+
+      if (this.#autoTimes) this.#sunPosition();
     } else {
-      const location = JSON.parse(localStorage.location);
-
-      this.checkSunPosition(location.latitude, location.longitude);
+      setTimeout(() => {
+        navigator.geolocation.getCurrentPosition(
+          this.#accessSuccess,
+          this.#accessError
+        );
+      }, this.#settings.permissionDelay);
     }
   }
 
-  success = pos => {
-    const location = {
-      latitude: pos.coords.latitude,
-      longitude: pos.coords.longitude
+  #accessSuccess = ({ coords }: { coords: Coords }) => {
+    this.#coords = {
+      latitude: coords.latitude,
+      longitude: coords.longitude
     };
 
-    this.checkSunPosition(location.latitude, location.longitude);
+    if (typeof this.#callbacks.onAccess === 'function') {
+      this.#callbacks.onAccess();
+    }
 
-    if (this.settings.storage) {
-      localStorage.setItem('location', JSON.stringify(location));
+    if (this.#settings.storage) {
+      localStorage.setItem('location', JSON.stringify(this.#coords));
     }
   };
 
-  error = err => {
-    if (typeof this.callbacks.onDenied === 'function') {
-      this.callbacks.onDenied();
+  #accessError = (error: Error) => {
+    if (typeof this.#callbacks.onAccessDenied === 'function') {
+      this.#callbacks.onAccessDenied();
     }
 
     document.dispatchEvent(
       new CustomEvent('smartDarkError', {
-        detail: err
+        detail: error
       })
     );
   };
 
-  checkSunPosition(latitude, longitude) {
-    const times = new SunCalc.getTimes(this.today, latitude, longitude);
+  #sunPosition() {
+    const { latitude, longitude } = this.#coords;
 
-    const sunrise = times.sunriseEnd - (times.sunriseEnd - times.sunrise) / 2;
-    const sunset = times.sunset - (times.sunset - times.sunsetStart) / 2;
+    import('suncalc2').then(SunCalc => {
+      const times = SunCalc.getTimes(this.#today, latitude, longitude);
 
-    const values = {
-      sunrise: new Date(sunrise),
-      sunset: new Date(sunset),
-      latitude,
-      longitude
-    };
+      this.#times = {
+        sunrise: times.sunriseEnd - (times.sunriseEnd - times.sunrise) / 2,
+        sunset: times.sunset - (times.sunset - times.sunsetStart) / 2
+      };
+    });
+  }
 
-    document.dispatchEvent(
-      new CustomEvent('smartDark', {
-        detail: values
-      })
-    );
+  setCoords(latitude: Number, longitude: Number) {
+    this.#coords = { latitude, longitude };
 
-    setInterval(() => {
-      if (localStorage.auto && JSON.parse(localStorage.auto)) {
-        const now = new Date();
+    this.#autoCoords = false;
+  }
 
-        now.getTime() > sunrise && now.getTime() < sunset
-          ? this.light()
-          : this.dark();
-      }
-    }, 100);
+  setTimes(sunrise: Number, sunset: Number) {
+    this.#times = { sunrise, sunset };
+
+    this.#autoTimes = false;
+  }
+
+  toggle() {
+    if (typeof this.#callbacks.onToggle === 'function') {
+      this.#callbacks.onToggle();
+    }
+
+    if (this.#settings.soundUrl) this.#sound();
+
+    this.#theme(!this.#isDark);
+
+    localStorage.setItem('auto', 'false');
   }
 
   reset() {
     localStorage.clear();
 
-    if (typeof this.callbacks.onReset === 'function') this.callbacks.onReset();
-  }
-
-  light() {
-    if (typeof this.callbacks.onLight === 'function') this.callbacks.onLight();
-
-    this.isDark = false;
-
-    const changeTheme = element => {
-      if (this.settings.lightClass) {
-        element.classList.add(this.settings.lightClass);
-      }
-
-      element.classList.remove(this.settings.darkClass);
-    };
-
-    if (this.elements instanceof NodeList) {
-      Object.values(this.elements).map(element => changeTheme(element));
-    } else {
-      changeTheme(this.elements);
+    if (typeof this.#callbacks.onReset === 'function') {
+      this.#callbacks.onReset();
     }
-
-    localStorage.setItem('dark', 'false');
   }
 
-  dark() {
-    if (typeof this.callbacks.onDark === 'function') this.callbacks.onDark();
+  destroy() {
+    this.#isListening = false;
 
-    this.isDark = true;
-
-    const changeTheme = element => {
-      if (this.settings.lightClass) {
-        element.classList.remove(this.settings.lightClass);
-      }
-
-      element.classList.add(this.settings.darkClass);
-    };
-
-    if (this.elements instanceof NodeList) {
-      Object.values(this.elements).map(element => changeTheme(element));
-    } else {
-      changeTheme(this.elements);
+    if (typeof this.#callbacks.onDestroy === 'function') {
+      this.#callbacks.onDestroy();
     }
-
-    localStorage.setItem('dark', 'true');
   }
 
-  toggle() {
-    if (typeof this.callbacks.onToggle === 'function') {
-      this.callbacks.onToggle();
-    }
-
-    this.isDark ? this.light() : this.dark();
-
-    localStorage.setItem('auto', 'false');
-  }
-
-  extendSettings(settings) {
+  #extendSettings(settings) {
     const defaultSettings = {
-      auto: true, // enable smart switch on script init
-      darkClass: 'dark', // class added when dark mode is enabled
-      lightClass: '', // class added when dark mode is disabled
-      storage: true, // store location coordinates in local storage
-      storageClear: true // clear location coordinates in local storage everyday at midnight
+      mode: 'smart',
+      auto: true,
+      darkClass: 'dark',
+      lightClass: '',
+      brightness: false,
+      brightnessHighClass: 'high-brightness',
+      brightnessLowClass: 'low-brightness',
+      permissionDelay: 0,
+      storage: true,
+      storageClear: true,
+      soundUrl: '',
+      soundTimeout: 1000
     };
 
     const newSettings = {};
