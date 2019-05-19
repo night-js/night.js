@@ -11,6 +11,8 @@ type Times = {
 };
 
 export default class Night {
+  #element;
+
   #callbacks;
   #settings;
 
@@ -32,6 +34,8 @@ export default class Night {
   #today: Date = new Date();
 
   constructor(data = {}) {
+    this.#element = data.element || document.body;
+
     this.#callbacks = data.callbacks || {};
     this.#settings = this.#extendSettings(data.settings || {});
 
@@ -94,11 +98,11 @@ export default class Night {
     if ('ondevicelight' in window) {
       window.addEventListener('devicelight', e => {
         if (e.value < 50) {
-          document.body.classList.add(this.#settings.brightnessLowClass);
-          document.body.classList.remove(this.#settings.brightnessHighClass);
+          this.#element.classList.add(this.#settings.brightnessLowClass);
+          this.#element.classList.remove(this.#settings.brightnessHighClass);
         } else {
-          document.body.classList.add(this.#settings.brightnessHighClass);
-          document.body.classList.remove(this.#settings.brightnessLowClass);
+          this.#element.classList.add(this.#settings.brightnessHighClass);
+          this.#element.classList.remove(this.#settings.brightnessLowClass);
         }
       });
 
@@ -145,10 +149,10 @@ export default class Night {
     this.#isDark = false;
 
     if (this.#settings.lightClass) {
-      document.body.classList.add(this.#settings.lightClass);
+      this.#element.classList.add(this.#settings.lightClass);
     }
 
-    document.body.classList.remove(this.#settings.darkClass);
+    this.#element.classList.remove(this.#settings.darkClass);
 
     localStorage.setItem('dark', 'false');
   }
@@ -161,10 +165,10 @@ export default class Night {
     this.#isDark = true;
 
     if (this.#settings.lightClass) {
-      document.body.classList.remove(this.#settings.lightClass);
+      this.#element.classList.remove(this.#settings.lightClass);
     }
 
-    document.body.classList.add(this.#settings.darkClass);
+    this.#element.classList.add(this.#settings.darkClass);
 
     localStorage.setItem('dark', 'true');
   }
