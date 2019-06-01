@@ -78,7 +78,7 @@ night.dark();
 
 **• Switch mode automatically (based on time, location and sun position):**
 ```js
-night.auto();
+night.smartSwitch();
 ```
 
 **• Set coords manually:**
