@@ -11,7 +11,7 @@ type Times = {
 };
 
 export default class Night {
-  #element;
+  #elements;
 
   #callbacks;
   #settings;
@@ -34,7 +34,7 @@ export default class Night {
   #today: Date = new Date();
 
   constructor(data = {}) {
-    this.#element = data.element || document.body;
+    this.#elements = data.elements || document.body;
 
     this.#callbacks = data.callbacks || {};
     this.#settings = this.#extendSettings(data.settings || {});
@@ -94,15 +94,25 @@ export default class Night {
     }
   }
 
+  #changeClasses = (method: String, change: String) => {
+    if (this.#elements.length > 1) {
+      Object.values(this.#elements).map(element => {
+        element.classList[method](change);
+      });
+    } else if (this.#elements.length === 1) {
+      this.#elements.classList[method](change);
+    }
+  };
+
   #ambientLight() {
     if ('ondevicelight' in window) {
       window.addEventListener('devicelight', e => {
         if (e.value < 50) {
-          this.#element.classList.add(this.#settings.brightnessLowClass);
-          this.#element.classList.remove(this.#settings.brightnessHighClass);
+          this.#changeClasses('add', this.#settings.brightnessLowClass);
+          this.#changeClasses('remove', this.#settings.brightnessHighClass);
         } else {
-          this.#element.classList.add(this.#settings.brightnessHighClass);
-          this.#element.classList.remove(this.#settings.brightnessLowClass);
+          this.#changeClasses('add', this.#settings.brightnessHighClass);
+          this.#changeClasses('remove', this.#settings.brightnessLowClass);
         }
       });
 
@@ -149,10 +159,10 @@ export default class Night {
     this.#isDark = false;
 
     if (this.#settings.lightClass) {
-      this.#element.classList.add(this.#settings.lightClass);
+      this.#changeClasses('add', this.#settings.lightClass);
     }
 
-    this.#element.classList.remove(this.#settings.darkClass);
+    this.#changeClasses('remove', this.#settings.darkClass);
 
     localStorage.setItem('dark', 'false');
   }
@@ -165,10 +175,10 @@ export default class Night {
     this.#isDark = true;
 
     if (this.#settings.lightClass) {
-      this.#element.classList.remove(this.#settings.lightClass);
+      this.#changeClasses('remove', this.#settings.lightClass);
     }
 
-    this.#element.classList.add(this.#settings.darkClass);
+    this.#changeClasses('add', this.#settings.darkClass);
 
     localStorage.setItem('dark', 'true');
   }

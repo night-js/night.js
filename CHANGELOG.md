@@ -11,6 +11,7 @@
 - renamed callback `onAuto` to `onSmartSwitch`
 
 #### New Feature
+- added `elements` prop for single & multiple elements
 - added `setCoords` & `setTimes` methods
 - added device light support
 - added `mode`, `sound` & `brightness` options
