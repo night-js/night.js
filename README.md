@@ -47,7 +47,10 @@ Next use library with:
 
 **&bull; Vanilla JavaScript e.g:**
 ```js
+const elems = document.querySelectorAll('.night');
+
 const night = new Night({
+  elements: elems,
   settings: {
     // options...
   },
