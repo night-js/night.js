@@ -66,6 +66,16 @@ const night = new Night({
 night.toggle();
 ```
 
+**• Switch to light mode:**
+```js
+night.light();
+```
+
+**• Switch to dark mode:**
+```js
+night.dark();
+```
+
 **• Switch mode automatically (based on time, location and sun position):**
 ```js
 night.auto();
