@@ -21,7 +21,7 @@
 - added `onInit`, `onBrightness`, `onBrightnessNotSupported`, `onSoundPlay`, `onSoundPause`, `onColorScheme`, `onColorSchemeNotSupported` & `onDestroy` callbacks
 
 #### Internal
-- rebuild all methods
+- rebuilt all methods
 - made internal methods private
 
 #### Repository Changes
