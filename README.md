@@ -13,12 +13,12 @@ User location coordinates and theme settings are saved in the **browser's local 
 
 ## How to Install
 First, install the library in your project by npm:
-```bash
+```sh
 $ npm install night.js
 ```
 
 Or Yarn:
-```bash
+```sh
 $ yarn add night.js
 ```
 
