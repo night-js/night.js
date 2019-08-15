@@ -5,16 +5,17 @@
   "author": "Jakub Biesiada",
   "license": "MIT",
   "main": "lib/night.min.js",
+  "types": "lib/index.d.ts",
   "scripts": {
-    "release": "npm run prettier && npm run lint && npm run build:dev && npm run build && npm run test",
+    "release": "rimraf lib/* && npm run prettier && npm run lint && npm run build:dev && npm run build && npm run test",
     "build": "webpack --env build",
     "build:dev": "webpack --env dev",
     "test": "jest --coverage",
     "watch": "npm run build -- --watch",
     "watch:dev": "npm run build:dev -- --watch",
     "watch:test": "npm run test -- --watch",
-    "lint": "eslint src --fix",
-    "prettier": "prettier --write 'src/**/*.js'",
+    "lint": "eslint 'src/**/*.ts' --fix",
+    "prettier": "prettier --write 'src/**/*.ts'",
     "deploy": "gh-pages -d demo/build"
   },
   "repository": {
@@ -37,23 +38,19 @@
     "suncalc2": "^1.8.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.5.0",
-    "@babel/plugin-proposal-class-properties": "^7.5.0",
-    "@babel/plugin-proposal-private-methods": "^7.4.4",
-    "@babel/preset-env": "^7.5.0",
-    "@babel/preset-flow": "^7.0.0",
-    "babel-eslint": "11.0.0-beta.0",
-    "babel-loader": "^8.0.6",
-    "eslint": "^6.0.1",
+    "@typescript-eslint/parser": "^2.0.0",
+    "eslint": "^6.1.0",
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-prettier": "^3.1.0",
-    "gh-pages": "^2.0.1",
-    "husky": "^3.0.0",
+    "gh-pages": "^2.1.1",
+    "husky": "^3.0.3",
     "jest": "^24.8.0",
-    "lint-staged": "^9.1.0",
+    "lint-staged": "^9.2.1",
     "prettier": "^1.18.2",
-    "webpack": "^4.35.2",
-    "webpack-cli": "^3.3.5"
+    "ts-loader": "^6.0.4",
+    "typescript": "^3.5.3",
+    "webpack": "^4.39.2",
+    "webpack-cli": "^3.3.6"
   },
   "husky": {
     "hooks": {
@@ -61,7 +58,7 @@
     }
   },
   "lint-staged": {
-    "src/**/*.{js}": [
+    "src/**/*.{ts}": [
       "npm run prettier",
       "npm run lint",
       "git add"

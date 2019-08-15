@@ -105,13 +105,14 @@ night.destroy();
 ### Settings
 Name | Type | Default | Description | Available options
 -|-|-|-|-
-**mode** | string | `smart` | Mode of theme change detection | `smart` - based on geolocation and time, `color-scheme` - based on prefers-color-scheme value
 **auto** | boolean | `true` | Activate smart switch on library init | `true` (enable), `false` (disable)
-**darkClass** | string | `dark` | Class added to body when dark mode is active | Class name
-**lightClass** | string | ` ` | Class added to body when light mode is active | Class name
 **brightness** | boolean | `false` | Enable additional theme modes based on devicelight value (if supported) | `true` (enable), `false` (disable)
 **brightnessHighClass** | string | `high-brightness` | Class added to body on detect high value of devicelight event | Class name
 **brightnessLowClass** | string | `low-brightness` | Class added to body on detect low value of devicelight event | Class name
+**checkBreakpoint** | boolean | `true` | Compare current time with sunset & sunrise times | `true` (enable), `false` (disable)
+**darkClass** | string | `dark` | Class added to body when dark mode is active | Class name
+**lightClass** | string | ` ` | Class added to body when light mode is active | Class name
+**mode** | string | `smart` | Mode of theme change detection | `smart` - based on geolocation and time, `color-scheme` - based on prefers-color-scheme value
 **permissionDelay** | number | `0` | Dealy before display query for location permission (in miliseconds) | e.g.: `3000`
 **storage** | boolean | `true` | Store location coordinates in local storage for one day | `true` (enable), `false` (disable)
 **storageClear** | boolean | `true` | Clear location coordinates data in local storage everyday at midnight | `true` (enable), `false` (disable)
@@ -125,12 +126,15 @@ Name | Description | Available options
 **onAccessDenied** | Callback when access to geolocation values is deined | `() => { /* code */ }`
 **onBrightness** | Callback when devicelight event is supported | `() => { /* code */ }`
 **onBrightnessNotSupported** | Callback when devicelight event isn't supported | `() => { /* code */ }`
-**onAuto** | Callback during smart switch | `() => { /* code */ }`
+**onColorScheme** | Callback when `prefers-color-scheme` is supported | `() => { /* code */ }`
+**onColorSchemeNotSupported** | Callback when `prefers-color-scheme` isn't supported | `() => { /* code */ }`
 **onDark** | Callback during dark mode activation | `() => { /* code */ }`
 **onDenied** | Callback when geolocation permission denied | `() => { /* code */ }`
-**onInit** | Callback during plugin init | `() => { /* code */ }`
+**onDestroy** | Callback during library destroy | `() => { /* code */ }`
+**onInit** | Callback during library init | `() => { /* code */ }`
 **onLight** | Callback during light mode activation | `() => { /* code */ }`
 **onReset** | Callback during local storage reset | `() => { /* code */ }`
+**onSmartSwitch** | Callback during smart switch | `() => { /* code */ }`
 **onSoundPlay** | Callback during stop playing sound | `() => { /* code */ }`
 **onSoundPause** | Callback during start playing sound | `() => { /* code */ }`
 **onStorageClear** | Callback during deleting location coordinates and midnight time from local storage | `() => { /* code */ }`
