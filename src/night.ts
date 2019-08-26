@@ -9,13 +9,13 @@ export default class Night {
 
   private isInit: boolean;
   private isDark!: boolean;
-  private isPlaying: boolean = false;
+  private isPlaying = false;
 
   private coords!: Coords;
-  private autoCoords: boolean = true;
+  private autoCoords = true;
 
   private times!: Times;
-  private autoTimes: boolean = true;
+  private autoTimes = true;
 
   private matchLight!: boolean;
   private matchDark!: boolean;
@@ -24,7 +24,6 @@ export default class Night {
 
   constructor(data: Options) {
     this.elements = data.elements || document.body;
-
     this.settings = this.extendSettings(data.settings);
     this.callbacks = data.callbacks || {};
 
@@ -200,7 +199,9 @@ export default class Night {
       this.myLocation();
     }
 
-    if (isInit) this.isInit = false;
+    if (isInit) {
+      this.isInit = false;
+    }
 
     this.theme(this.isDark);
   }
@@ -268,7 +269,9 @@ export default class Night {
         this.coords = JSON.parse(localStorage.location);
       }
 
-      if (this.autoTimes) this.sunPosition();
+      if (this.autoTimes) {
+        this.sunPosition();
+      }
     } else {
       setTimeout(() => {
         navigator.geolocation.getCurrentPosition(

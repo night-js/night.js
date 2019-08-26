@@ -1,7 +1,7 @@
-import { Callbacks, Settings } from './';
+import { Callbacks, Settings } from '.';
 
 export type Options = {
-  elements: HTMLElement | HTMLElement[];
-  callbacks: Callbacks;
-  settings: Settings;
+  readonly elements: HTMLElement | HTMLElement[];
+  readonly settings: Settings;
+  readonly callbacks: Callbacks;
 };
