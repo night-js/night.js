@@ -19,10 +19,11 @@
 - added destroy method
 - added `permissionDelay` option
 - added `onInit`, `onBrightness`, `onBrightnessNotSupported`, `onSoundPlay`, `onSoundPause`, `onColorScheme`, `onColorSchemeNotSupported` & `onDestroy` callbacks
+- added typeDefs
 
 #### Internal
+- rewritten with TypeScript
 - rebuilt all methods
-- made internal methods private
 
 #### Repository Changes
 - switched from suncalc to suncalc2
