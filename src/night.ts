@@ -24,7 +24,7 @@ export default class Night {
 
   constructor(data: Options) {
     this.elements = data.elements || document.body;
-    this.settings = this.extendSettings(data.settings);
+    this.settings = this.extendSettings(data.settings || {});
     this.callbacks = data.callbacks || {};
 
     this.isInit = this.settings.auto;
