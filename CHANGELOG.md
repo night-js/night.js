@@ -17,6 +17,7 @@
 - added `mode`, `sound` & `brightness` options
 - added `prefers-color-scheme` support
 - added destroy method
+- added `sunriseTime` & `sunsetTime` options to manually set breakpoint times
 - added `permissionDelay` option
 - added `onInit`, `onBrightness`, `onBrightnessNotSupported`, `onSoundPlay`, `onSoundPause`, `onColorScheme`, `onColorSchemeNotSupported` & `onDestroy` callbacks
 - added typeDefs
