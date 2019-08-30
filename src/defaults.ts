@@ -13,5 +13,7 @@ export const defaultSettings: Settings = {
   soundTimeout: 1000,
   soundUrl: '',
   storage: true,
-  storageClear: true
+  storageClear: true,
+  sunriseTime: null,
+  sunsetTime: null
 };

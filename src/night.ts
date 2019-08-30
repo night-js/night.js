@@ -62,7 +62,7 @@ export default class Night {
     );
   };
 
-  private changeClasses = (method: string, change: string) => {
+  private changeClasses = (method: 'add' | 'remove', change: string) => {
     if (this.elements instanceof HTMLCollection) {
       Object.values(this.elements).map(element => {
         element.classList[method](change);
@@ -195,8 +195,12 @@ export default class Night {
       }
     }
 
-    if ('geolocation' in navigator && this.isInit) {
-      this.myLocation();
+    if (this.settings.sunriseTime && this.settings.sunsetTime) {
+      this.timeBreakpoints();
+    } else {
+      if ('geolocation' in navigator && this.isInit) {
+        this.myLocation();
+      }
     }
 
     if (isInit) {
@@ -315,11 +319,30 @@ export default class Night {
     import('suncalc2').then(SunCalc => {
       const times = SunCalc.getTimes(this.today, latitude, longitude);
 
-      this.times = {
-        sunrise: times.sunriseEnd - (times.sunriseEnd - times.sunrise) / 2,
-        sunset: times.sunset - (times.sunset - times.sunsetStart) / 2
-      };
+      let sunrise;
+      let sunset;
+
+      if (this.settings.sunriseTime) {
+        sunrise = this.settings.sunriseTime.getTime();
+      } else {
+        sunrise = times.sunriseEnd - (times.sunriseEnd - times.sunrise) / 2;
+      }
+
+      if (this.settings.sunsetTime) {
+        sunset = this.settings.sunsetTime.getTime();
+      } else {
+        sunset = times.sunset - (times.sunset - times.sunsetStart) / 2;
+      }
+
+      this.times = { sunrise, sunset };
     });
+  }
+
+  private timeBreakpoints() {
+    this.times = {
+      sunrise: this.settings.sunriseTime!.getTime(),
+      sunset: this.settings.sunsetTime!.getTime()
+    };
   }
 
   public setCoords(latitude: number, longitude: number) {
