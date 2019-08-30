@@ -12,4 +12,6 @@ export type Settings = {
   readonly storageClear: boolean;
   readonly soundUrl: string;
   readonly soundTimeout: number;
+  readonly sunriseTime: Date | null;
+  readonly sunsetTime: Date | null;
 };
