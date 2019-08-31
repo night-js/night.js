@@ -118,6 +118,8 @@ Name | Type | Default | Description | Available options
 **storageClear** | boolean | `true` | Clear location coordinates data in local storage everyday at midnight | `true` (enable), `false` (disable)
 **soundUrl** | string | ` ` | Source of the audio file | e.g.: `https://example.com/song.mp3`
 **soundTimeout** | number | `1000` | Time before stop sound playing (in miliseconds) | e.g.: `2500`
+**sunriseTime** | Date | `null` | Sunrise time set manually | new date object
+**sunsetTime** | Date | `null` | Sunset time set manually | new date object
 
 ### Callbacks
 Name | Description | Available options
