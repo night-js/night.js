@@ -22,7 +22,7 @@ export default class Night {
 
   private today: Date = new Date();
 
-  constructor(data: Options) {
+  constructor(data = {} as Options) {
     this.elements = data.elements || document.body;
     this.settings = this.extendSettings(data.settings || {});
     this.callbacks = data.callbacks || {};
@@ -186,7 +186,7 @@ export default class Night {
     }
   }
 
-  public smartSwitch(isInit: boolean) {
+  public smartSwitch(isInit?: boolean) {
     if ((isInit && !localStorage.auto) || !isInit) {
       localStorage.setItem('auto', 'true');
 
