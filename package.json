@@ -4,15 +4,14 @@
   "description": "Smart dark mode switch (based on location and time)",
   "author": "Jakub Biesiada",
   "license": "MIT",
-  "main": "lib/night.min.js",
+  "main": "lib/night.cjs.js",
+  "module": "lib/night.esm.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "release": "rimraf lib/* && npm run prettier && npm run lint && npm run build:dev && npm run build && npm run test",
-    "build": "webpack --env build",
-    "build:dev": "webpack --env dev",
+    "release": "rimraf lib/* && npm run prettier && npm run lint && npm run build",
+    "build": "rollup -c",
     "test": "jest --coverage",
     "watch": "npm run build -- --watch",
-    "watch:dev": "npm run build:dev -- --watch",
     "watch:test": "npm run test -- --watch",
     "lint": "eslint 'src/**/*.ts' --fix",
     "prettier": "prettier --write 'src/**/*.ts'",
@@ -38,21 +37,21 @@
     "suncalc2": "^1.8.1"
   },
   "devDependencies": {
-    "@types/jest": "^24.0.18",
-    "@typescript-eslint/parser": "^2.1.0",
-    "eslint": "^6.3.0",
-    "eslint-config-prettier": "^6.2.0",
-    "eslint-plugin-prettier": "^3.1.0",
-    "gh-pages": "^2.1.1",
-    "husky": "^3.0.5",
+    "@rollup/plugin-node-resolve": "^7.0.0",
+    "@types/jest": "^24.9.0",
+    "@typescript-eslint/parser": "^2.17.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.9.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "gh-pages": "^2.2.0",
+    "husky": "^4.0.10",
     "jest": "^24.9.0",
-    "lint-staged": "^9.2.5",
-    "prettier": "^1.18.2",
-    "ts-jest": "^24.0.2",
-    "ts-loader": "^6.0.4",
-    "typescript": "^3.6.2",
-    "webpack": "^4.39.3",
-    "webpack-cli": "^3.3.8"
+    "lint-staged": "^10.0.0",
+    "prettier": "^1.19.1",
+    "ts-jest": "^24.3.0",
+    "rollup-plugin-terser": "^5.2.0",
+    "rollup-plugin-typescript2": "^0.25.3",
+    "typescript": "^3.7.5"
   },
   "jest": {
     "transform": {
@@ -67,8 +66,7 @@
   "lint-staged": {
     "src/**/*.{ts}": [
       "npm run prettier",
-      "npm run lint",
-      "git add"
+      "npm run lint"
     ]
   }
 }
