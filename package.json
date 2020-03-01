@@ -48,7 +48,7 @@
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-prettier": "^3.0.0",
     "gh-pages": "^2.0.1",
-    "jsdom": "13.1.0",
+    "jsdom": "16.2.0",
     "jsdom-global": "^3.0.2",
     "mocha": "^5.2.0",
     "mock-local-storage": "^1.1.8",
