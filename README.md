@@ -1,4 +1,4 @@
-# [night.js](https://github.com/jb1905/night.js)
+# [night.js](https://github.com/night-js/night.js)
 
 [![NPM version](http://img.shields.io/npm/v/night.js.svg?style=flat-square)](https://www.npmjs.com/package/night.js)
 [![NPM downloads](http://img.shields.io/npm/dm/night.js.svg?style=flat-square)](https://www.npmjs.com/package/night.js)
@@ -9,7 +9,7 @@ night.js is a JavaScript library that implements **smart dark mode switch**, the
 User location coordinates and theme settings are saved in the **browser's local storage**.
 
 ### Demo
-**[See plugin in action](https://jb1905.github.io/night.js/)**
+**[See plugin in action](https://night-js.github.io/night.js/)**
 
 ## How to Install
 First, install the library in your project by npm:

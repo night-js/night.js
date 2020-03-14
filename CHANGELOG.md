@@ -1,6 +1,6 @@
 # night.js Changelog
 
-### [CHANGELOG.md for v1 here](https://github.com/JB1905/night.js/blob/v1/CHANGELOG.md)
+### [CHANGELOG.md for v1 here](https://github.com/night-js/night.js/blob/v1/CHANGELOG.md)
 
 ## 2.0.0 beta 1 (Soon)
 #### Breaking Changes
