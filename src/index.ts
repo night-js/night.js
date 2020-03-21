@@ -66,7 +66,7 @@ export default class Night {
 
   private changeClasses = (method: 'add' | 'remove', change: string) => {
     if (this.elements instanceof HTMLCollection) {
-      Object.values(this.elements).map(element => {
+      Object.values(this.elements).map((element) => {
         element.classList[method](change);
       });
     } else if (this.elements instanceof HTMLElement) {
@@ -76,7 +76,7 @@ export default class Night {
 
   private ambientLight() {
     if ('ondevicelight' in window) {
-      window.addEventListener('devicelight', e => {
+      window.addEventListener('devicelight', (e) => {
         if (e.value < 50) {
           this.changeClasses('add', this.settings.brightnessLowClass!);
           this.changeClasses('remove', this.settings.brightnessHighClass!);
@@ -263,8 +263,8 @@ export default class Night {
           sunrise: new Date(sunrise),
           sunset: new Date(sunset),
           latitude,
-          longitude
-        }
+          longitude,
+        },
       })
     );
   }
@@ -291,7 +291,7 @@ export default class Night {
   private accessSuccess = ({ coords }: { coords: Coords }) => {
     this.coords = {
       latitude: coords.latitude,
-      longitude: coords.longitude
+      longitude: coords.longitude,
     };
 
     if (typeof this.callbacks.onAccess === 'function') {
@@ -310,7 +310,7 @@ export default class Night {
 
     document.dispatchEvent(
       new CustomEvent('smartDarkError', {
-        detail: error
+        detail: error,
       })
     );
   };
@@ -343,7 +343,7 @@ export default class Night {
   private timeBreakpoints() {
     this.times = {
       sunrise: this.settings.sunriseTime!.getTime(),
-      sunset: this.settings.sunsetTime!.getTime()
+      sunset: this.settings.sunsetTime!.getTime(),
     };
   }
 

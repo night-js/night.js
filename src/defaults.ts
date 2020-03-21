@@ -15,5 +15,5 @@ export const defaultSettings: Settings = {
   storage: true,
   storageClear: true,
   sunriseTime: null,
-  sunsetTime: null
+  sunsetTime: null,
 };
