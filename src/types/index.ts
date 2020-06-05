@@ -1,5 +1,5 @@
-export { Settings } from './settings';
-export { Callbacks } from './callbacks';
-export { Options } from './options';
-export { Times } from './times';
-export { Coords } from './coords';
+export type { Settings } from './Settings';
+export type { Callbacks } from './Callbacks';
+export type { Options } from './Options';
+export type { Times } from './Times';
+export type { Coords } from './Coords';

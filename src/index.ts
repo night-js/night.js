@@ -1,8 +1,8 @@
 import SunCalc from 'suncalc2';
 
-import { defaultSettings } from './defaults';
+import type { Settings, Callbacks, Options, Times, Coords } from './types';
 
-import { Settings, Callbacks, Options, Times, Coords } from './types';
+import { defaultSettings } from './defaults';
 
 export default class Night {
   private elements: HTMLElement | HTMLElement[];
